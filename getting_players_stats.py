@@ -16,6 +16,9 @@ data_rows = page.find_all('tr')[1:]
 
 player_stats = [[td.getText() for td in data_rows[i].find_all('td')]for i in range(len(data_rows))]
 
-stats = pd.DataFrame(player_stats, columns=headers)
+number_of_entries = len(player_stats)
+print(number_of_entries)
 
+stats = pd.DataFrame(player_stats, columns=headers)
+print(stats)
 pd.DataFrame.to_csv(stats,r'C:\Users\thabi\Desktop\scrapping_nba_data_with_bs4_and_requestsLib\nba_stats_per_game.csv')
