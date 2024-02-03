@@ -9,6 +9,7 @@ dec_url = 'https://www.basketball-reference.com/leagues/NBA_2024_games-december.
 jan_url = 'https://www.basketball-reference.com/leagues/NBA_2024_games-january.html'
 feb_url = 'https://www.basketball-reference.com/leagues/NBA_2024_games-february.html'
 all_box_score_links = [oct_url,nov_url,dec_url,jan_url,feb_url]
+
 def get_page(url):
     data_source = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
     return BeautifulSoup(data_source.content, 'html.parser')
