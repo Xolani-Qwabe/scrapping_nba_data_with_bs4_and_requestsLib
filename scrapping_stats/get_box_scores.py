@@ -1,15 +1,29 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import get_all_box_score_links
+import time
 
-url = 'https://www.basketball-reference.com/boxscores/202310240DEN.html'
+
 
 
 def get_page_data(url):
-    response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'},timeout=0.5)
+    response = requests.get(url, headers={
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/109.0'
+    },timeout= 2)
+    time.sleep(5)
     return BeautifulSoup(response.content, 'html.parser')
 
-page = get_page_data(url)
+def get_html_pages(links):
+    pages = []
+    for link in links:
+        response = requests.get(link, headers={
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/109.0'
+        }, timeout=10)
+        time.sleep(20)
+        pages.append(BeautifulSoup(response.content, 'html.parser'))
+    return pages
+
 
 
 # returns a list/tuple with basic_home_table, advanced_home_table, basic_away_table, advanced_away_table
@@ -67,7 +81,7 @@ def make_advanced_table_pandas(adv_table):
     return pd.DataFrame(player_stats, columns=headers)
 
 def write_basic_tables_to_file(details, basic_table_home, basic_table_away):
-    path = './box_score_tables_csv'
+    path = '../box_score_tables_csv'
     home_path = f'{path}/basic_table_H_{details}.csv'
     away_path = f'{path}/basic_table_A_{details}.csv'
     pd.DataFrame.to_csv(basic_table_home, home_path)
@@ -75,7 +89,7 @@ def write_basic_tables_to_file(details, basic_table_home, basic_table_away):
 
 
 def write_advanced_tables_to_file(details, adv_table_home, adv_table_away):
-    path = './box_score_tables_csv'
+    path = '../box_score_tables_csv'
     home_path = f'{path}/advanced_table_H_{details}.csv'
     away_path = f'{path}/advanced_table_A_{details}.csv'
     pd.DataFrame.to_csv(adv_table_home, home_path)
@@ -92,6 +106,20 @@ def tables_to_csv(page):
     write_basic_tables_to_file(game_details, basic_table_home, basic_table_away)
     write_advanced_tables_to_file(game_details, adv_table_home, adv_table_away)
 
+def get_all_box_score_pages(links):
+    pages = map(get_page_data,links)
+    print(list(pages))
+    print('I am here')
+    return pages
 
+def write_all_box_score_pages_to_csv():
+    links = ['https://www.basketball-reference.com/boxscores/202311080BRK.html', 'https://www.basketball-reference.com/boxscores/202311080NYK.html', 'https://www.basketball-reference.com/boxscores/202311080CHI.html', 'https://www.basketball-reference.com/boxscores/202311080HOU.html', 'https://www.basketball-reference.com/boxscores/202311080MEM.html', 'https://www.basketball-reference.com/boxscores/202311080MIL.html', 'https://www.basketball-reference.com/boxscores/202311080MIN.html', 'https://www.basketball-reference.com/boxscores/202311080OKC.html', 'https://www.basketball-reference.com/boxscores/202311080DAL.html', 'https://www.basketball-reference.com/boxscores/202311080DEN.html', 'https://www.basketball-reference.com/boxscores/202311080SAC.html', 'https://www.basketball-reference.com/boxscores/202311090IND.html', 'https://www.basketball-reference.com/boxscores/202311090ORL.html', 'https://www.basketball-reference.com/boxscores/202311100DET.html', 'https://www.basketball-reference.com/boxscores/202311100WAS.html', 'https://www.basketball-reference.com/boxscores/202311100BOS.html', 'https://www.basketball-reference.com/boxscores/202311100HOU.html', 'https://www.basketball-reference.com/boxscores/202311100MEM.html', 'https://www.basketball-reference.com/boxscores/202311100SAS.html', 'https://www.basketball-reference.com/boxscores/202311100DAL.html', 'https://www.basketball-reference.com/boxscores/202311100PHO.html', 'https://www.basketball-reference.com/boxscores/202311100SAC.html', 'https://www.basketball-reference.com/boxscores/202311110ORL.html', 'https://www.basketball-reference.com/boxscores/202311110BOS.html', 'https://www.basketball-reference.com/boxscores/202311110ATL.html', 'https://www.basketball-reference.com/boxscores/202311110GSW.html', 'https://www.basketball-reference.com/boxscores/202311120NYK.html', 'https://www.basketball-reference.com/boxscores/202311120BRK.html', 'https://www.basketball-reference.com/boxscores/202311120LAC.html', 'https://www.basketball-reference.com/boxscores/202311120PHI.html', 'https://www.basketball-reference.com/boxscores/202311120CHI.html', 'https://www.basketball-reference.com/boxscores/202311120HOU.html']
+    pages = list(get_html_pages(links))
+    print(pages)
+    map(tables_to_csv, pages)
 
-tables_to_csv(page)
+if __name__ == '__main__':
+    # url = 'https://www.basketball-reference.com/boxscores/202311080PHI.html'
+    write_all_box_score_pages_to_csv()
+    # page = get_page_data(url)
+    # tables_to_csv(page)
