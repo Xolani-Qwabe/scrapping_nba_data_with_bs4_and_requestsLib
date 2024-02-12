@@ -81,7 +81,7 @@ def make_advanced_table_pandas(adv_table):
     return pd.DataFrame(player_stats, columns=headers)
 
 def write_basic_tables_to_file(details, basic_table_home, basic_table_away):
-    path = '../box_score_tables_csv'
+    path = '../reading_cleaning_data/box_score_tables_csv'
     home_path = f'{path}/basic_table_H_{details}.csv'
     away_path = f'{path}/basic_table_A_{details}.csv'
     pd.DataFrame.to_csv(basic_table_home, home_path)
@@ -89,7 +89,7 @@ def write_basic_tables_to_file(details, basic_table_home, basic_table_away):
 
 
 def write_advanced_tables_to_file(details, adv_table_home, adv_table_away):
-    path = '../box_score_tables_csv'
+    path = '../reading_cleaning_data/box_score_tables_csv'
     home_path = f'{path}/advanced_table_H_{details}.csv'
     away_path = f'{path}/advanced_table_A_{details}.csv'
     pd.DataFrame.to_csv(adv_table_home, home_path)
