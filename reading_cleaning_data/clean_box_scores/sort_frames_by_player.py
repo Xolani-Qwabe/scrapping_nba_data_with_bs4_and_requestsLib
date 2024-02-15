@@ -28,11 +28,8 @@ def update_dataframe(csv_file, dataframe_dict):
     return dataframe_dict
 
 
-def main():
-    folder_path = './advanced_clean'
-
+def sort_csv_tables_by_player(folder_path):
     dataframe_dict = {}
-
     # Iterate over each file in the folder
     for file_name in os.listdir(folder_path):
         if file_name.endswith('.csv'):
@@ -45,4 +42,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    folder_path = './advanced_clean'
+    sort_csv_tables_by_player(folder_path)

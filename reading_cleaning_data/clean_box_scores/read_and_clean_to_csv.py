@@ -8,10 +8,7 @@ def clean_csv_boxscore_tables(folder_path):
         if file_name.endswith('.csv'):
             file_path = os.path.join(folder_path, file_name)
             box_score = pd.read_csv(file_path)
-            box_score.fillna(0.0, inplace=True)
-            box_score.replace('Did Not Play','0:0', inplace=True)
-            box_score.drop(5, inplace=True)
-            box_score.to_csv(f'./clean_box_scores/{file_name}', index=False)
+            box_score.to_csv(f'../clean_box_scores/{file_name}', index=False)
         num += 1
     print("Done cleaning all box score tables there no missing values.")
 
