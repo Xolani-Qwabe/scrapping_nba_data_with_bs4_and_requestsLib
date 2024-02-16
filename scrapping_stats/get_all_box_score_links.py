@@ -30,4 +30,3 @@ def all_box_score_links_2024_games():
         time.sleep(2)
     return all
 
-

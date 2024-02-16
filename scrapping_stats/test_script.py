@@ -1,35 +1,24 @@
-import re
+import requests
+from bs4 import BeautifulSoup
+import time
+import regex as r
 from datetime import datetime
-# Sample strings
-# Extracting information from each string
-from datetime import datetime
-import re
 
-def get_game_info_list(game_string):
-    # Regular expression pattern to extract game details, team names, and date
-    pattern = r'(?:In-SeasonTournamentFinal:)?([A-Z][a-z0-9]+(?:[A-Z][a-z0-9]+)*)at([A-Z][a-z0-9]+(?:[A-Z][a-z0-9]+)*)BoxScore_(\w+\d+_\d+)'
-    # Extracting information from each string
-    match = re.match(pattern, game_string)
-    if match:
-        team1 = match.group(1)
-        team2 = match.group(2)
-        date = match.group(3)
-        # Insert spaces between camel case team names
-        team1 = re.sub(r"(?<=\w)([A-Z])", r" \1", team1)
-        team2 = re.sub(r"(?<=\w)([A-Z])", r" \1", team2)
-        date_obj = datetime.strptime(date, '%B%d_%Y')
-        formatted_date = date_obj.strftime('%Y-%m-%d')
-        print("Game:", team1, "at", team2)
-        print("Date:", formatted_date)
-        return [team1, team2, formatted_date]
-    else:
-        print("No match found for:", game_string)
+url= 'https://www.basketball-reference.com/boxscores/202402140UTA.html'
 
-# Test the function
+def send_request_for_one_html_page_to_site(url):
+    """Handles HTTP Status Code errors"""
+    try:
+        response = requests.get(url, headers={
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/109.0'
+        })
+        response.raise_for_status()  # Raises an HTTPError for bad responses
+        print("Thread going to sleep for 5 seconds request sent")
+        time.sleep(5)
+        return BeautifulSoup(response.content, 'html.parser')
+    except requests.exceptions.HTTPError as http_err:
+        print(f'HTTP error occurred: {http_err}')
+    except Exception as err:
+        print(f'Other error occurred: {err}')
 
-
-
-
-
-info = get_game_info_list("In-SeasonTournamentFinal:IndianaPacersatLosAngelesLakersBoxScore_December9_2023")
-print(info)
+print(send_request_for_one_html_page_to_site(url))

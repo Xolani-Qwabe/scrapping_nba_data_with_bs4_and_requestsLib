@@ -8,4 +8,5 @@ class Game(BaseModel):
     away_team_id: str
     home_score: int
     away_score: int
-    box_score: Dict[str, Dict[str, float]]
+    basic_box_score: Dict[str, Dict[str, float]]
+    advanced_box_score: Dict[str, Dict[str, float]]

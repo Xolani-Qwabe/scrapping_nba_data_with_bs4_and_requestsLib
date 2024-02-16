@@ -1,21 +1,35 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-import get_all_box_score_links
+# import get_all_box_score_links
 import time
 import regex as r
 from datetime import datetime
 
 
-def get_html_page(url):
-    response = requests.get(url, headers={
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/109.0'
-    },)
-    time.sleep(5)
-    return BeautifulSoup(response.content, 'html.parser')
+"""
+Function takes a url and returns a html page 
+served by site using bs4
+"""
 
 
-def get_html_pages(links):
+def send_request_for_one_html_page_to_site(url):
+    """Handles HTTP Status Code errors"""
+    try:
+        response = requests.get(url, headers={
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/109.0'
+        })
+        response.raise_for_status()  # Raises an HTTPError for bad responses
+        print("Thread going to sleep for 5 seconds request sent")
+        time.sleep(5)
+        return BeautifulSoup(response.content, 'html.parser')
+    except requests.exceptions.HTTPError as http_err:
+        print(f'HTTP error occurred: {http_err}')
+    except Exception as err:
+        print(f'Other error occurred: {err}')
+
+
+def get_multiple_html_pages_from_site(links):
     pages = []
     for link in links:
         response = requests.get(link, headers={
@@ -26,18 +40,29 @@ def get_html_pages(links):
     return pages
 
 
-# returns a list/tuple with basic_home_table, advanced_home_table, basic_away_table, advanced_away_table
+"""
+returns a list/tuple with 
+basic_home_table, advanced_home_table,
+& basic_away_table, advanced_away_table
+"""
+
+
 def get_tables(page):
     tables = page.find_all('table')
     return tables[8],tables[15],tables[0],tables[7]
 
 
-# finds the header with #id content and grabs the inner text
-def get_game_details(page):
+"""
+finds the header with #id content and 
+grabs the inner text which is the game details on site
+"""
+
+
+def get_game_details_as_is(page):
     return page.find(id='content').find('h1').get_text()
 
 
-def get_game_details_for_table(page):
+def get_game_details_joined_for_table(page):
     details = page.find(id='content').find('h1').get_text()
     return details.replace(' ', '').replace(',', '_')
 
@@ -63,6 +88,8 @@ def get_table_data(rows):
 
 
 def make_table_rows(player_names, player_stats):
+    """Check if there is a string time object in player stats
+    and change function to return a list with made rows with player names"""
     player_names[5].insert(5, 'player')
     for i in range(len(player_names)):
         player = player_names[i][0]
@@ -70,9 +97,10 @@ def make_table_rows(player_names, player_stats):
 
 
 def make_basic_table_pandas(basic_table,page):
+    """Refactor"""
     rows = get_table_rows(basic_table)
     player_names, player_stats = get_table_data(rows)
-    get_game_details = get_game_details_for_table(page)
+    get_game_details = get_game_details_joined_for_table(page)
     away, home, date = get_game_info_list(get_game_details)
     [player_stat.append(away) for player_stat in player_stats]
     [player_stat.append(home) for player_stat in player_stats]
@@ -92,7 +120,7 @@ def make_basic_table_pandas(basic_table,page):
 def make_advanced_table_pandas(adv_table,page):
     rows = get_table_rows(adv_table)
     player_names, player_stats = get_table_data(rows)
-    get_game_details = get_game_details_for_table(page)
+    get_game_details = get_game_details_joined_for_table(page)
     away, home, date = get_game_info_list(get_game_details)
     [player_stat.append(away) for player_stat in player_stats]
     [player_stat.append(home) for player_stat in player_stats]
@@ -126,21 +154,21 @@ def write_advanced_tables_to_file(details, adv_table_home, adv_table_away):
 
 
 def tables_to_csv(page):
-    print('building tables with pandas')
+    print('building basic tables with pandas')
     basic_table_home = make_basic_table_pandas(get_tables(page)[0],page)
     basic_table_away = make_basic_table_pandas(get_tables(page)[2],page)
+    print('building advanced tables with pandas')
     adv_table_away = make_advanced_table_pandas(get_tables(page)[1],page)
     adv_table_home = make_advanced_table_pandas(get_tables(page)[3],page)
-    print(basic_table_home)
-    game_details = get_game_details(page)
-    print(game_details)
+    game_details = get_game_details_joined_for_table(page)
+    print(f'Writing tables for game {game_details} to.csv')
     write_basic_tables_to_file(game_details, basic_table_home, basic_table_away)
     write_advanced_tables_to_file(game_details, adv_table_home, adv_table_away)
 
 
 def get_all_box_score_pages(links):
-    pages = map(get_html_pages,links)
-    print('fetched pages')
+    pages = map(get_multiple_html_pages_from_site,links)
+    print('Fetched all pages from basketball reference pages')
     return pages
 
 
@@ -149,7 +177,7 @@ def write_all_box_score_pages_to_csv():
     # links = list(get_all_box_score_links.all_box_score_links_2024_games())
     links = [ 'https://www.basketball-reference.com/boxscores/202402030CHI.html', 'https://www.basketball-reference.com/boxscores/202402030DAL.html', 'https://www.basketball-reference.com/boxscores/202402030NYK.html', 'https://www.basketball-reference.com/boxscores/202402030SAS.html', 'https://www.basketball-reference.com/boxscores/202402040DET.html', 'https://www.basketball-reference.com/boxscores/202402040WAS.html', 'https://www.basketball-reference.com/boxscores/202402040BOS.html', 'https://www.basketball-reference.com/boxscores/202402040CHO.html', 'https://www.basketball-reference.com/boxscores/202402040MIA.html', 'https://www.basketball-reference.com/boxscores/202402040MIN.html', 'https://www.basketball-reference.com/boxscores/202402040OKC.html', 'https://www.basketball-reference.com/boxscores/202402040UTA.html', 'https://www.basketball-reference.com/boxscores/202402040DEN.html', 'https://www.basketball-reference.com/boxscores/202402050CHO.html', 'https://www.basketball-reference.com/boxscores/202402050CLE.html', 'https://www.basketball-reference.com/boxscores/202402050PHI.html', 'https://www.basketball-reference.com/boxscores/202402050ATL.html', 'https://www.basketball-reference.com/boxscores/202402050BRK.html', 'https://www.basketball-reference.com/boxscores/202402050NOP.html', 'https://www.basketball-reference.com/boxscores/202402060IND.html', 'https://www.basketball-reference.com/boxscores/202402060BRK.html', 'https://www.basketball-reference.com/boxscores/202402060MIA.html', 'https://www.basketball-reference.com/boxscores/202402060NYK.html', 'https://www.basketball-reference.com/boxscores/202402060CHI.html', 'https://www.basketball-reference.com/boxscores/202402060UTA.html', 'https://www.basketball-reference.com/boxscores/202402060PHO.html', 'https://www.basketball-reference.com/boxscores/202402070CHO.html', 'https://www.basketball-reference.com/boxscores/202402070WAS.html', 'https://www.basketball-reference.com/boxscores/202402070BOS.html', 'https://www.basketball-reference.com/boxscores/202402070MIA.html', 'https://www.basketball-reference.com/boxscores/202402070PHI.html', 'https://www.basketball-reference.com/boxscores/202402070LAC.html', 'https://www.basketball-reference.com/boxscores/202402070SAC.html', 'https://www.basketball-reference.com/boxscores/202402080IND.html', 'https://www.basketball-reference.com/boxscores/202402080ORL.html', 'https://www.basketball-reference.com/boxscores/202402080BRK.html', 'https://www.basketball-reference.com/boxscores/202402080NYK.html', 'https://www.basketball-reference.com/boxscores/202402080MEM.html', 'https://www.basketball-reference.com/boxscores/202402080MIL.html', 'https://www.basketball-reference.com/boxscores/202402080PHO.html', 'https://www.basketball-reference.com/boxscores/202402080LAL.html', 'https://www.basketball-reference.com/boxscores/202402080POR.html', 'https://www.basketball-reference.com/boxscores/202402090PHI.html', 'https://www.basketball-reference.com/boxscores/202402090BOS.html', 'https://www.basketball-reference.com/boxscores/202402090TOR.html', 'https://www.basketball-reference.com/boxscores/202402090MIL.html', 'https://www.basketball-reference.com/boxscores/202402090SAC.html', 'https://www.basketball-reference.com/boxscores/202402090LAL.html', 'https://www.basketball-reference.com/boxscores/202402100DAL.html', 'https://www.basketball-reference.com/boxscores/202402100LAC.html', 'https://www.basketball-reference.com/boxscores/202402100BRK.html', 'https://www.basketball-reference.com/boxscores/202402100CHO.html', 'https://www.basketball-reference.com/boxscores/202402100ORL.html', 'https://www.basketball-reference.com/boxscores/202402100WAS.html', 'https://www.basketball-reference.com/boxscores/202402100ATL.html', 'https://www.basketball-reference.com/boxscores/202402100NYK.html', 'https://www.basketball-reference.com/boxscores/202402100TOR.html', 'https://www.basketball-reference.com/boxscores/202402100GSW.html', 'https://www.basketball-reference.com/boxscores/202402100POR.html', 'https://www.basketball-reference.com/boxscores/202402110MIA.html', 'https://www.basketball-reference.com/boxscores/202402110OKC.html', 'https://www.basketball-reference.com/boxscores/202402120CHO.html', 'https://www.basketball-reference.com/boxscores/202402120CLE.html', 'https://www.basketball-reference.com/boxscores/202402120ATL.html', 'https://www.basketball-reference.com/boxscores/202402120TOR.html', 'https://www.basketball-reference.com/boxscores/202402120HOU.html', 'https://www.basketball-reference.com/boxscores/202402120MEM.html', 'https://www.basketball-reference.com/boxscores/202402120MIL.html', 'https://www.basketball-reference.com/boxscores/202402120DAL.html', 'https://www.basketball-reference.com/boxscores/202402120UTA.html', 'https://www.basketball-reference.com/boxscores/202402120LAC.html', 'https://www.basketball-reference.com/boxscores/202402130BRK.html', 'https://www.basketball-reference.com/boxscores/202402130ORL.html', 'https://www.basketball-reference.com/boxscores/202402130MIL.html', 'https://www.basketball-reference.com/boxscores/202402130PHO.html', 'https://www.basketball-reference.com/boxscores/202402130POR.html', 'https://www.basketball-reference.com/boxscores/202402130LAL.html', 'https://www.basketball-reference.com/boxscores/202402140CHO.html', 'https://www.basketball-reference.com/boxscores/202402140ORL.html', 'https://www.basketball-reference.com/boxscores/202402140PHI.html', 'https://www.basketball-reference.com/boxscores/202402140BOS.html', 'https://www.basketball-reference.com/boxscores/202402140CLE.html', 'https://www.basketball-reference.com/boxscores/202402140TOR.html', 'https://www.basketball-reference.com/boxscores/202402140MEM.html', 'https://www.basketball-reference.com/boxscores/202402140NOP.html', 'https://www.basketball-reference.com/boxscores/202402140DAL.html', 'https://www.basketball-reference.com/boxscores/202402140DEN.html', 'https://www.basketball-reference.com/boxscores/202402140PHO.html', 'https://www.basketball-reference.com/boxscores/202402140UTA.html', 'https://www.basketball-reference.com/boxscores/202402140GSW.html']
     print(len(links))
-    pages = [get_html_page(url) for url in links]
+    pages = [send_request_for_one_html_page_to_site(url) for url in links]
     [tables_to_csv(page) for page in pages]
 
 
@@ -175,5 +203,6 @@ def get_game_info_list(game_string):
 
 
 if __name__ == '__main__':
-   write_all_box_score_pages_to_csv()
+    print('Getting Box Scores...')
+
 
