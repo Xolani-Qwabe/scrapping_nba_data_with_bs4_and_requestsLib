@@ -4,6 +4,7 @@ import pandas as pd
 import time
 import re as r
 from datetime import datetime
+from teams_enum import NBATeam
 
 
 """
@@ -39,16 +40,14 @@ def get_multiple_html_pages_from_site(links):
     return pages
 
 
-"""
-returns a list/tuple with 
-basic_home_table, advanced_home_table,
-& basic_away_table, advanced_away_table
-"""
-
-
 def get_tables(page):
     tables = page.find_all('table')
-    return tables[8],tables[15],tables[0],tables[7]
+    return tables
+
+
+def get_all_tables(page):
+    tables = page.find_all('table')
+    return tables
 
 
 """
@@ -193,15 +192,17 @@ def get_game_info_list(game_string):
         team1 = r.sub(r"(?<=\w)([A-Z])", r" \1", team1)
         team2 = r.sub(r"(?<=\w)([A-Z])", r" \1", team2)
         date_obj = datetime.strptime(date, '%B%d_%Y')
+        nba = NBATeam
         formatted_date = date_obj.strftime('%Y-%m-%d')
         print("Game:", team1, "at", team2)
         print("Date:", formatted_date)
-        return [team1, team2, formatted_date]
+        return [nba.get_team_abbreviation(team1), nba.get_team_abbreviation(team2), formatted_date]
     else:
         print("No match found for:", game_string)
 
 
 if __name__ == '__main__':
-    print('Getting Box Scores...')
+
+ print(get_game_info_list( get_game_details_joined_for_table(send_request_for_one_html_page_to_site('https://www.basketball-reference.com/boxscores/202311010TOR.html'))))
 
 

@@ -3,12 +3,14 @@ from bs4 import BeautifulSoup
 import time
 
 
-oct_url = 'https://www.basketball-reference.com/leagues/NBA_2024_games.html'
+oct_url = 'https://www.basketball-reference.com/leagues/NBA_2024_games-october.html'
 nov_url = 'https://www.basketball-reference.com/leagues/NBA_2024_games-november.html'
 dec_url = 'https://www.basketball-reference.com/leagues/NBA_2024_games-december.html'
 jan_url = 'https://www.basketball-reference.com/leagues/NBA_2024_games-january.html'
 feb_url = 'https://www.basketball-reference.com/leagues/NBA_2024_games-february.html'
-all_box_schedule_links = [oct_url,nov_url,dec_url,jan_url,feb_url]
+march_url = 'https://www.basketball-reference.com/leagues/NBA_2024_games-march.html'
+all_box_schedule_links = [oct_url,nov_url,dec_url,jan_url,feb_url,march_url]
+
 
 def get_page(url):
     data_source = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -22,6 +24,7 @@ def get_box_score_links(page):
     ref = 'href'
     return [f'https://www.basketball-reference.com{a_element.get(ref)}' for a_element in a_elements]
 
+
 def all_box_score_links_2024_games():
     all = []
     for url in all_box_schedule_links:
@@ -30,4 +33,8 @@ def all_box_score_links_2024_games():
         time.sleep(2)
     return all
 
-print(get_box_score_links(feb_url))
+links = (get_box_score_links(get_page(oct_url)))
+
+
+print(links)
+
