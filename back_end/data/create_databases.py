@@ -2,9 +2,9 @@ import sqlite3
 
 
 nba_teams_abbreviated = [
-    "ATL", "BOS", "BKN", "CHA", "CHI", "CLE", "DAL", "DEN", "DET", "GSW",
+    "ATL", "BOS", "BRK", "CHI", "CLE", "DAL", "DEN", "DET", "GSW",
     "HOU", "IND", "LAC", "LAL", "MEM", "MIA", "MIL", "MIN", "NOP", "NYK",
-    "OKC", "ORL", "PHI", "PHO", "POR", "SAC", "SAS", "TOR", "UTA", "WAS"
+    "OKC", "ORL", "PHI", "PHO", "POR", "SAC", "SAS", "TOR", "UTA", "WAS","CHO"
 ]
 
 advanced_boxscore_schema = '''CREATE TABLE IF NOT EXISTS advanced_boxscore_stats (

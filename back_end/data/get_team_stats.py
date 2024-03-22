@@ -8,36 +8,7 @@ from bs4 import BeautifulSoup
 
 
 
-team_links = [("https://www.basketball-reference.com/teams/ATL/2024.html", 'ATL'),
-             ("https://www.basketball-reference.com/teams/BOS/2024.html", 'BOS'),
-             ("https://www.basketball-reference.com/teams/PHI/2024.html", 'PHI'),
-             ("https://www.basketball-reference.com/teams/BRK/2024.html", 'BRK'),
-             ("https://www.basketball-reference.com/teams/TOR/2024.html", 'TOR'),
-             ("https://www.basketball-reference.com/teams/CLE/2024.html", 'CLE'),
-             ("https://www.basketball-reference.com/teams/MIL/2024.html", 'MIL'),
-             ("https://www.basketball-reference.com/teams/IND/2024.html", 'IND'),
-             ("https://www.basketball-reference.com/teams/CHI/2024.html", 'CHI'),
-             ("https://www.basketball-reference.com/teams/DET/2024.html", 'DET'),
-             ("https://www.basketball-reference.com/teams/ORL/2024.html", 'ORL'),
-             ("https://www.basketball-reference.com/teams/MIA/2024.html", 'MIA'),
-             ("https://www.basketball-reference.com/teams/CHO/2024.html", 'CHO'),
-             ("https://www.basketball-reference.com/teams/WAS/2024.html", 'WAS'),
-             ("https://www.basketball-reference.com/teams/MIN/2024.html", 'MIN'),
-             ("https://www.basketball-reference.com/teams/OKC/2024.html", 'OKC'),
-             ("https://www.basketball-reference.com/teams/DEN/2024.html", 'DEN'),
-             ("https://www.basketball-reference.com/teams/UTA/2024.html", 'UTA'),
-             ("https://www.basketball-reference.com/teams/POR/2024.html", 'POR'),
-             ("https://www.basketball-reference.com/teams/LAC/2024.html", 'LAC'),
-             ("https://www.basketball-reference.com/teams/SAC/2024.html", 'SAC'),
-             ("https://www.basketball-reference.com/teams/PHO/2024.html", 'PHO'),
-             ("https://www.basketball-reference.com/teams/LAL/2024.html", 'LAL'),
-             ("https://www.basketball-reference.com/teams/GSW/2024.html", 'GSW'),
-             ("https://www.basketball-reference.com/teams/NOP/2024.html", 'NOP'),
-             ("https://www.basketball-reference.com/teams/DAL/2024.html", 'DAL'),
-             ("https://www.basketball-reference.com/teams/HOU/2024.html", 'HOU'),
-             ("https://www.basketball-reference.com/teams/MEM/2024.html", 'MEM'),
-             ("https://www.basketball-reference.com/teams/SAS/2024.html", 'SAS'),
-             ("https://www.basketball-reference.com/teams/NYK/2024.html", 'NYK')]
+
 
 
 
@@ -221,46 +192,46 @@ def insert_data(link,team_name):
             # Connect to the database
             conn = sqlite3.connect(f'nba_databases/{team_name}.db')
             # Insert data into the roster table
-            # if table_id == 'pbp':
-            #     insert_data_into_play_by_play_table(conn, data)
-            #     conn.commit()
-            #     print("Inserted play by play data successfully!")
-            # if table_id == 'roster':
-            #     insert_data_into_roster__table(conn, data)
-            #     conn.commit()
-            #     print("Inserted roster data successfully!")
-            # if table_id == 'team_and_opponent':
-            #     insert_data_into_team_and_opponent_table(conn, data)
-            #     conn.commit()
-            #     print("Inserted team and opponent data successfully!")
-            # if table_id == 'team_misc':
-            #     insert_data_into_info_table(conn, data)
-            #     conn.commit()
-            #     print("Inserted team info data successfully!")
-            # if table_id == 'per_game':
-            #     insert_data_into_per_game_table(conn, data)
-            #     conn.commit()
-            #     print("Inserted per game data successfully!")
-            # if table_id == 'per_minute':
-            #     insert_data_into_per_36(conn, data)
-            #     conn.commit()
-            #     print("Inserted per 36 minutes data successfully!")
+            if table_id == 'pbp':
+                insert_data_into_play_by_play_table(conn, data)
+                conn.commit()
+                print("Inserted play by play data successfully!")
+            if table_id == 'roster':
+                insert_data_into_roster__table(conn, data)
+                conn.commit()
+                print("Inserted roster data successfully!")
+            if table_id == 'team_and_opponent':
+                insert_data_into_team_and_opponent_table(conn, data)
+                conn.commit()
+                print("Inserted team and opponent data successfully!")
+            if table_id == 'team_misc':
+                insert_data_into_info_table(conn, data)
+                conn.commit()
+                print("Inserted team info data successfully!")
+            if table_id == 'per_game':
+                insert_data_into_per_game_table(conn, data)
+                conn.commit()
+                print("Inserted per game data successfully!")
+            if table_id == 'per_minute':
+                insert_data_into_per_36(conn, data)
+                conn.commit()
+                print("Inserted per 36 minutes data successfully!")
             if table_id == 'per_poss':
                 insert_data_into_per_100_possesions_table(conn, data)
                 conn.commit()
                 print("Inserted per 100 possesions successfully!")
-            # if table_id == 'adj_shooting':
-            #     insert_data_into_adjusted_shooting_table(conn, data)
-            #     conn.commit()
-            #     print("Inserted adjusted shooting data successfully!")
-            # if table_id == 'advanced':
-            #     insert_data_into_advanced_table(conn, data)
-            #     conn.commit()
-            #     print("Inserted advanced data successfully!")
-            # if table_id == 'shooting':
-            #     insert_data_into_shooting_table(conn, data)
-            #     conn.commit()
-            #     print("Inserted shooting data successfully!")
+            if table_id == 'adj_shooting':
+                insert_data_into_adjusted_shooting_table(conn, data)
+                conn.commit()
+                print("Inserted adjusted shooting data successfully!")
+            if table_id == 'advanced':
+                insert_data_into_advanced_table(conn, data)
+                conn.commit()
+                print("Inserted advanced data successfully!")
+            if table_id == 'shooting':
+                insert_data_into_shooting_table(conn, data)
+                conn.commit()
+                print("Inserted shooting data successfully!")
 
             else:print(f'Error while processing {table_id}')
 
@@ -271,32 +242,42 @@ def insert_data(link,team_name):
             conn.close()
 
 
-insert_data('https://www.basketball-reference.com/teams/ATL/2024.html', 'ATL')
+team_links = [("https://www.basketball-reference.com/teams/ATL/2024.html", 'ATL'),#0
+             ("https://www.basketball-reference.com/teams/BOS/2024.html", 'BOS'),#1
+             ("https://www.basketball-reference.com/teams/PHI/2024.html", 'PHI'),#2
+             ("https://www.basketball-reference.com/teams/BRK/2024.html", 'BRK'),#3
+             ("https://www.basketball-reference.com/teams/TOR/2024.html", 'TOR'),#4
+             ("https://www.basketball-reference.com/teams/CLE/2024.html", 'CLE'),#5
+             ("https://www.basketball-reference.com/teams/MIL/2024.html", 'MIL'),#6
+             ("https://www.basketball-reference.com/teams/IND/2024.html", 'IND'),#7
+             ("https://www.basketball-reference.com/teams/CHI/2024.html", 'CHI'),#8
+             ("https://www.basketball-reference.com/teams/DET/2024.html", 'DET'),#9
+             ("https://www.basketball-reference.com/teams/ORL/2024.html", 'ORL'),#10
+             ("https://www.basketball-reference.com/teams/MIA/2024.html", 'MIA'),#11
+             ("https://www.basketball-reference.com/teams/CHO/2024.html", 'CHO'),#12
+             ("https://www.basketball-reference.com/teams/WAS/2024.html", 'WAS'),#13
+             ("https://www.basketball-reference.com/teams/MIN/2024.html", 'MIN'),#14
+             ("https://www.basketball-reference.com/teams/OKC/2024.html", 'OKC'),#15
+             ("https://www.basketball-reference.com/teams/DEN/2024.html", 'DEN'),#16
+             ("https://www.basketball-reference.com/teams/UTA/2024.html", 'UTA'),#17
+             ("https://www.basketball-reference.com/teams/POR/2024.html", 'POR'),#18
+             ("https://www.basketball-reference.com/teams/LAC/2024.html", 'LAC'),#19
+             ("https://www.basketball-reference.com/teams/SAC/2024.html", 'SAC'),#20
+             ("https://www.basketball-reference.com/teams/PHO/2024.html", 'PHO'),#21
+             ("https://www.basketball-reference.com/teams/LAL/2024.html", 'LAL'),#22
+             ("https://www.basketball-reference.com/teams/GSW/2024.html", 'GSW'),#23
+             ("https://www.basketball-reference.com/teams/NOP/2024.html", 'NOP'),#24
+             ("https://www.basketball-reference.com/teams/DAL/2024.html", 'DAL'),#25
+             ("https://www.basketball-reference.com/teams/HOU/2024.html", 'HOU'),#26
+             ("https://www.basketball-reference.com/teams/MEM/2024.html", 'MEM'),#27
+             ("https://www.basketball-reference.com/teams/SAS/2024.html", 'SAS'),#28
+             ("https://www.basketball-reference.com/teams/NYK/2024.html", 'NYK')]#29
 
-# driver = webdriver.Firefox()
-# table_ids = ['roster',
-# 'team_and_opponent',
-# 'team_misc',
-# 'per_game',
-# 'totals',
-# 'per_minute',
-# 'per_poss',
-# 'adj_shooting',
-# 'shooting',
-# 'pbp','advanced']
-# tabless = get_bs4_tables_by_specific_ids("https://www.basketball-reference.com/teams/BOS/2024.html", driver, table_ids)
-# driver.close()
-# print(len(tabless))
-# print(tabless[0])
-# # print(tables[1])
-# # print(tables[2])
-# # print(tables[3])
-# print(tables[4])
-# print(tables[5])
-# print(tables[6])
-# print(tables[7])
-# print(tables[8])
-# print(tables[9])
-# print(tables[10])
+
+
+link, team = team_links[28]
+insert_data(link, team)
+
+
 
 # [insert_data(link, team_name) for link, team_name in team_links]
