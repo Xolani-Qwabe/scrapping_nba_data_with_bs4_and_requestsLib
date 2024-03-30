@@ -7,5 +7,8 @@
     </content>
     <orderEntry type="jdk" jdkName="Python 3.12 (scrapping_nba_data_with_bs4_and_requestsLib)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="bootstrap.bundle" level="application" />
+    <orderEntry type="library" name="jquery-3.3.1.slim" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
   </component>
 </module>
