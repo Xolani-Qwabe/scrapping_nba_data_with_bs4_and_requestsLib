@@ -51,9 +51,10 @@ body {
 
 
 .sidebar-component {
-  /* background-color: #91B9C9; */
+  /* background-color: #93bdcc; */
   flex-grow: 1;
-  height: 90vh;
+  flex-wrap: wrap;
+  display: flex;
   order: 2;
 }
 
@@ -74,6 +75,13 @@ lu{
   font-weight: 400;
   font-style: normal;
   margin-left: 1em;
+}
+
+.side-container{
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+
 }
 
 .player-card{
@@ -108,6 +116,8 @@ lu{
 .player-card-stats-button{
   background-color: #191A24;
   border-radius: 0.5em;
+  border-color: #e70501;
+  border-width: 0.24em;
   color: aliceblue;
   margin-top: 1em;
 }
@@ -115,7 +125,6 @@ lu{
 .player-card-name{
   font-size: 1rem;
   font-weight:800;
-
   margin-bottom: 1em;
 }
 
@@ -124,3 +133,31 @@ lu{
   font-weight:700;
 }
 
+.team-nav{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+  flex-grow: 1;
+  color: #c8cae9;
+}
+
+
+.team-nav-item{
+  font-weight: 900;
+}
+
+.team-nav-item button{
+  background-color:  #030c4f ;
+  border-radius: .4em; 
+  color: #c8cae9;
+  padding: .5em;
+  border-color: #e70501;
+}
+
+.side-container{
+  background-color: #c8cae9;
+  background-image: url('alt.gif');
+  background-repeat: repeat; 
+
+}
