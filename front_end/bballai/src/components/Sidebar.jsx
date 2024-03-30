@@ -5,7 +5,7 @@ import buddyHieldImage from './Buddy Hield.avif';
 function Sidebar(props){
     const userData = {
         name:'Buddy Heild',
-        position: "Shooting Gaurd",
+        points: "15.7",
         img_path: buddyHieldImage
       };
 
@@ -13,7 +13,7 @@ function Sidebar(props){
        <div>
             <ProfileCard
                 name={userData.name}
-                position={userData.position}
+                points={userData.points}
                 img_path={userData.img_path}
             />
         </div>
