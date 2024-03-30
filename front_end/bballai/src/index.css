@@ -1,0 +1,124 @@
+
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+  
+}
+
+
+body {
+  background-color: #F1F6F5;
+}
+.header-component {
+  flex-grow: 1;
+  width: 100vw;
+  height: 10vh;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  background-color: #191A24;
+  color: aliceblue;
+  order: 1;
+}
+
+.main-component {
+  /* background-color: #91B9C9; */
+  flex-grow: 5;
+  height: 80vh;
+  order: 3;
+}
+
+
+.sidebar-component {
+  /* background-color: #91B9C9; */
+  flex-grow: 1;
+  height: 90vh;
+  order: 2;
+}
+
+li{
+  text-decoration: none;
+  list-style: none;
+  display: inline;
+  padding: 1em;
+}
+
+lu{
+  background-color: rgb(188, 232, 65);
+  
+}
+
+.title{
+  font-family: "Delicious Handrawn", cursive;
+  font-weight: 400;
+  font-style: normal;
+  margin-left: 1em;
+}
+
+.player-card{
+  margin: 0.5em;
+  box-shadow: 0 0 10px 5px rgba(51, 46, 46, 0.36);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  width: 30%;
+  background-image: url('sixsers.gif');
+  background-repeat: repeat;
+}
+
+.player-card-image{
+  width: 100%;
+}
+
+
+.player-card-body{
+  background: linear-gradient(45deg, #36343478 10%, #f9f9f9 60%, #c90000de 20%, #1313f2d2 5%);
+  /* background-color: rgb(255, 255, 255); */
+  width: 100%;
+  border-radius: 0.5em;
+  display: inline-block;
+  padding: 1.5em;
+  text-align: center;
+}
+
+.player-card-stats-button{
+  background-color: #191A24;
+  border-radius: 0.5em;
+  color: aliceblue;
+  margin-top: 1em;
+}
+
+.player-card-name{
+  font-size: 1rem;
+  font-weight:800;
+
+  margin-bottom: 1em;
+}
+
+.player-card-position{
+  font-size: 1rem;
+  font-weight:700;
+}
+
