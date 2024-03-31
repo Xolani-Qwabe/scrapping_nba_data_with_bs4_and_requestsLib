@@ -6,6 +6,7 @@ import kellyOubreJrImage from './Kelly Oubre Jr.avif';
 import tobiasHarrisImage from './Tobias Harris.avif'; 
 import tyreseMaxeyImage from './Tyrese Maxey.avif'; 
 
+
 function Sidebar(props){
     const userData = [{
         name:'Tyrese Maxey',
@@ -29,9 +30,9 @@ function Sidebar(props){
         img_path: joelEmbidImage
       }];
 
-    return <aside className='sidebar-component'>
+    return <div className='team-cards-component'>
+         
        <div className='side-container'>
- 
            <ul className='team-nav'>
                 <li className='team-nav-item'><button >Staters</button></li>
                 <li className='team-nav-item'><button >Reserves</button></li>
@@ -70,7 +71,7 @@ function Sidebar(props){
             />
           
         </div>
-    </aside>
+    </div>
 }
 
 

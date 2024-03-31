@@ -20,8 +20,6 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-  height: 100vh;
-  
 }
 
 
@@ -31,22 +29,19 @@ body {
 }
 .header-component {
   flex-grow: 1;
-  width: 100vw;
-  height: 10vh;
   align-items: center;
   justify-content: space-between;
   display: flex;
   flex-direction: row;
   background-color: #191A24;
   color: aliceblue;
-  order: 1;
+  padding: 0.5em;
+  flex-grow: 1;
 }
 
 .main-component {
-  /* background-color: #91B9C9; */
-  flex-grow: 5;
-  height: 80vh;
-  order: 3;
+  flex-grow: 1;
+
 }
 
 
@@ -55,7 +50,7 @@ body {
   flex-grow: 1;
   flex-wrap: wrap;
   display: flex;
-  order: 2;
+
 }
 
 li{
@@ -63,6 +58,7 @@ li{
   list-style: none;
   display: inline;
   padding: 1em;
+  cursor: pointer;
 }
 
 lu{
@@ -71,7 +67,7 @@ lu{
 }
 
 .title{
-  font-family: "Delicious Handrawn", cursive;
+  /* font-family: "Delicious Handrawn", cursive; */
   font-weight: 400;
   font-style: normal;
   margin-left: 1em;
@@ -87,9 +83,9 @@ lu{
 .player-card{
   margin: 0.5em;
   box-shadow: 0 0 10px 5px rgba(51, 46, 46, 0.36);
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   display: flex;
-  width: 30%;
+  width: 25%;
   background-image: url('sixsers.gif');
   background-repeat: repeat;
   margin: 1em;
@@ -98,7 +94,7 @@ lu{
 }
 
 .player-card-image{
-  width: 50%;
+  width: 40%;
   object-fit: cover;
 }
 
@@ -106,7 +102,7 @@ lu{
 .player-card-body{
   background: linear-gradient(45deg, #36343478 10%, #f9f9f9 60%, #c90000de 20%, #1313f2d2 5%);
   /* background-color: rgb(255, 255, 255); */
-  width: 100%;
+  width: 60%;
   border-radius: 0.5em;
   display: inline-block;
   padding: 1.5em;
@@ -145,19 +141,51 @@ lu{
 
 .team-nav-item{
   font-weight: 900;
+  
 }
 
-.team-nav-item button{
-  background-color:  #030c4f ;
-  border-radius: .4em; 
-  color: #c8cae9;
-  padding: .5em;
-  border-color: #e70501;
+.team-nav-item h2{
+  font-weight: 700;
+  color: #000752;
+}
+
+.team-nav-item h2 span{
+  font-weight: 700;
+  color: #000752;
+}
+
+.team-nav-item button{ 
+  background: transparent;
+  border-radius: 25px;
+  cursor: pointer;
+  min-width: 8vw;
+  color: #02085d;
+  padding: .4em;
+  border-color: #010c66 ;
+  border-width: 0.1rem;
 }
 
 .side-container{
   background-color: #c8cae9;
-  background-image: url('alt.gif');
+  background: linear-gradient(45deg, #36343478 10%, #f9f9f9 70%, #c90000de 15%, #1313f2d2 5%);
   background-repeat: repeat; 
+
+}
+
+
+.team-info{
+  flex-grow: 1;
+  display: flex;
+  padding:0.5em 0; ;
+  justify-content: space-evenly;
+  margin: 0.5em 0;
+  /* background-color: rgb(49, 146, 230); */
+  /* font-size: 2rem; */
+}
+
+.team-image{
+  /* background: transparent; */
+  width: 10%;
+
 
 }
