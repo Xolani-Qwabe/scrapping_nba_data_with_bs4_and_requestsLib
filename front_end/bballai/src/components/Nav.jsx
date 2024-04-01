@@ -1,16 +1,16 @@
 import React from 'react'
 
 function Nav({nav_list}){
-    console.log(nav_list)
-    return <div>
-    <nav className='nav-component'>
+    // console.log(props)
+    return <nav className='nav-component'>
+        <h2 className='logo'>Bball AI</h2>
         <ul>
             {
                 nav_list.map((item,index)=><li key={index}>{item}</li>)
             }     
         </ul>
     </nav>
-    </div>
+   
 }
 
 

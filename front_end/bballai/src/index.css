@@ -17,17 +17,20 @@
   box-sizing: border-box;
 }
 
-.container {
+
+body {
+  background-color: #e9e9e9;
+  font-family: "Poppins", sans-serif;
+}
+
+.wrapper {
   display: flex;
   flex-wrap: wrap;
 }
 
+/*********************************Nav Component*********************************************************/
 
-body {
-  background-color: #F1F6F5;
-  font-family: "Poppins", sans-serif;
-}
-.header-component {
+.nav-component {
   flex-grow: 1;
   align-items: center;
   justify-content: space-between;
@@ -39,20 +42,6 @@ body {
   flex-grow: 1;
 }
 
-.main-component {
-  flex-grow: 1;
-
-}
-
-
-.sidebar-component {
-  /* background-color: #93bdcc; */
-  flex-grow: 1;
-  flex-wrap: wrap;
-  display: flex;
-
-}
-
 li{
   text-decoration: none;
   list-style: none;
@@ -61,48 +50,38 @@ li{
   cursor: pointer;
 }
 
-lu{
-  background-color: rgb(188, 232, 65);
-  
-}
 
-.title{
-  /* font-family: "Delicious Handrawn", cursive; */
+
+.logo{
   font-weight: 400;
   font-style: normal;
   margin-left: 1em;
 }
 
-.side-container{
-  display: flex;
-  justify-content: center;
-  padding: 0.5em;
 
-}
 
+/**********************************Player Card********************************/
 .player-card{
-  margin: 0.5em;
+  margin: 1.5em;
   box-shadow: 0 0 10px 5px rgba(51, 46, 46, 0.36);
   border-radius: 0.75rem;
   display: flex;
-  width: 25%;
+  max-width: 12.5%;
+  min-width: 10%;
   background-image: url('sixsers.gif');
   background-repeat: repeat;
-  margin: 1em;
-  padding-left: 0.025em;
+  padding-left: 0.25em;
   font-family: "Bebas Neue", sans-serif;
 }
 
 .player-card-image{
-  width: 40%;
+  max-width: 50%;
   object-fit: cover;
 }
-
-
 .player-card-body{
-  background: linear-gradient(45deg, #36343478 10%, #f9f9f9 60%, #c90000de 20%, #1313f2d2 5%);
-  /* background-color: rgb(255, 255, 255); */
-  width: 60%;
+  background: linear-gradient(45deg, #36343478 15%, #f9f9f9 70%, #c90000de 20%, #1313f2d2 5%);
+ 
+  max-width: 50%;
   border-radius: 0.5em;
   display: inline-block;
   padding: 1.5em;
@@ -129,63 +108,107 @@ lu{
   font-weight:700;
 }
 
-.team-nav{
+
+
+/**********************************Team Cards Container*********************************/
+.team-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(45deg, #26262656 1%, #f9f9f9 80%, #c90000de 60%, #1313f2d2 10%);
+  flex-grow: 1;
+}
+
+.team-card-nav{
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
-  align-items: center;
-  flex-grow: 1;
-  color: #c8cae9;
+  align-items: start;
+
 }
 
-
-.team-nav-item{
-  font-weight: 900;
-  
+.player-cards{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
 }
 
-.team-nav-item h2{
-  font-weight: 700;
-  color: #000752;
-}
-
-.team-nav-item h2 span{
-  font-weight: 700;
-  color: #000752;
-}
-
-.team-nav-item button{ 
-  background: transparent;
-  border-radius: 25px;
+.team-card-nav-item button{ 
+  background: black;
+  border-radius: 15px;
   cursor: pointer;
-  min-width: 8vw;
-  color: #02085d;
-  padding: .4em;
-  border-color: #010c66 ;
-  border-width: 0.1rem;
+  min-width: 4.5vw;
+  color: #eaf8ff;
+  padding: .25em 0;
 }
 
-.side-container{
-  background-color: #c8cae9;
-  background: linear-gradient(45deg, #36343478 10%, #f9f9f9 70%, #c90000de 15%, #1313f2d2 5%);
-  background-repeat: repeat; 
 
-}
 
+
+/***************************Team Info**********************************************************/
 
 .team-info{
   flex-grow: 1;
   display: flex;
-  padding:0.5em 0; ;
+  padding:0.5em 0; 
+  align-items: center;
   justify-content: space-evenly;
-  margin: 0.5em 0;
-  /* background-color: rgb(49, 146, 230); */
-  /* font-size: 2rem; */
+  margin: 1.5em 0;
 }
+
+.team-name {
+  font-weight: 300;
+  color: #020d88;
+  font-size: 2.5rem;
+}
+
+.team-name span{
+  font-weight: 700;
+  color: #d00303;
+}
+
 
 .team-image{
-  /* background: transparent; */
-  width: 10%;
-
-
+  width:7%;
 }
+
+.team-stats-table-div {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.team-stats-table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 8px; 
+    overflow: hidden;
+}
+
+.team-stats-table-header-row th {
+    background-color: #c2c8e0;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.team-stats-table-data-row td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.team-stats-table-headers {
+    font-weight: bold;
+}
+
+/* Optional: Alternate row background color */
+.team-stats-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+.team-stats-table tr:hover {
+    background-color: #ddd;
+}
+
